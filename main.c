@@ -16,7 +16,7 @@ int main(int argc, char **argv)
     if (!is_valid_input(argc, argv))
         return (EXIT_FAILURE);
     // here parse
-    table = init_table(argc, argv, 1);
+    table = init_table(argc, argv);
     if (!table)
         return (EXIT_FAILURE);
     if (!start_dinner(table))

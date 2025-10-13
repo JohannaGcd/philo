@@ -5,7 +5,7 @@
     Returns the number between 0 and INT MAX
     Or -1 if it exceeds INT_MAX.
 */
-static int_atoi(char *str)
+int int_atoi(char *str)
 {
     unsigned long long int  nbr;
     int                     i;

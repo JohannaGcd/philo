@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <sys/time.h>
 #include <limits.h>
+#include <errno.h>
 
 // macros
 
@@ -13,6 +14,25 @@
 # define STR_PROG_NAME "philo"
 # define STR_ERR_DIGITS_ONLY "%s invalid input: %s should be a positive integer between 0 and INT_MAX, ie. 2147483647.\n"
 # define STR_ERR_MAX_PHILO "%s invalid input: there must be between 1 and 200 philsophers at most.\n"
+# define STR_ERR_MALLOC "Could not allocate memory at %s.\n"
+
+// codes for mutex operations
+
+typedef enum e_mutex_operation
+{
+    CREATE,
+    DESTROY,
+    LOCK,
+    UNLOCK,
+    CREATE,
+    JOIN,
+} t_mutex_operation;
+
+typedef enum e_thread_operation 
+{
+    CREATE,
+    JOIN,
+} t_thread_operation;
 
 // structures - philo, monitor
 
@@ -48,7 +68,10 @@ typedef struct  s_table
     t_philo *philos;
 }   t_table;
 
+
 // function prototypes
 
 int     warning_msg(char *str, char *detail, int exit_nbr);
-bool    is_valid_input(int argc, char **argv)
+bool is_valid_input(int argc, char **argv);
+int int_atoi(char *str);
+t_table *init_table(int argc, char **argv);
