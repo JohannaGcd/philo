@@ -15,6 +15,7 @@ int main(int argc, char **argv)
         return(warning_msg(STR_CORRECT_ARGS, NULL, EXIT_FAILURE));
     if (!is_valid_input(argc, argv))
         return (EXIT_FAILURE);
+    // here parse
     table = init_table(argc, argv, 1);
     if (!table)
         return (EXIT_FAILURE);
