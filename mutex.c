@@ -1,43 +1,49 @@
 #include "philo.h"
 
-/* mutex_error_handler: --> update
-	returns the appropriate error code for thread operations.
-	And calls warning_msg to exit the program.
+/* mutex_error_handler: 
+
 */
-static void	mutex_error_handler(t_mutex_operation *operator, int status) // check if warning_msg appropriate
+static void	mutex_error_handler(t_mutex_operation operator, int status)
 {
 	if (status == 0)
 		return ;
-	else if (EINVAL == status && (operator == LOCK || operator == UNLOCK))
-		return (warning_msg("The value specified by mutex is invalid", NULL, 1)); // check exit number
-	else if (EINVAL == status && operator == INIT)
-		return (warning_msg("Value specified by attr is invalid", NULL, 1)); // what is attr
+	else if (EINVAL == status && (operator == MUTEX_LOCK || operator == MUTEX_UNLOCK))
+		warning_msg("Invalid mutex: the value specified by mutex is invalid.\n", NULL, 1);
+	else if (EINVAL == status && operator == MUTEX_CREATE)
+		warning_msg("Invalid attributes: the value specified by attr is invalid.\n", NULL, 1);
 	else if (EDEADLK == status)
-		return (warning_msg("Deadlock risk", NULL, 1));
+		warning_msg("Deadlock risk detected.\n", NULL, 1);
 	else if (EPERM == status)
-		return (warning_msg("Current thread does not hold a lock on mutex", NULL, 1));
+		warning_msg("Thread does not hold the mutex lock.\n", NULL, 1);
 	else if (ENOMEM == status)
-		return (warning_msg("Insufficient memory", NULL, 1));
+		warning_msg("Insufficient memory to initialize mutex.\n", NULL, 1);
 	else if (EBUSY == status)
-		return (warning_msg("Mutex is locked", NULL, 1));
-
+		warning_msg("Mutex is locked", NULL, 1);
+	else
+		warning_msg("Unknown mutex error.\n", NULL, 1);
+	exit(EXIT_FAILURE);
 }
 
 /* mutex_operator
-	Using the enum table for each operation,
-	this functions centralizes all mutex operations.
-	and exits upon error, using mutex_error_handler.
+
 */
-void	mutex_operator(pthread_mutex_t *mutex, t_mutex_operation operation)
+void mutex_operator(pthread_mutex_t *mutex, t_mutex_operation operation)
 {
-	if (operation == LOCK)
-		mutex_error_handler(pthread_mutex_lock(mutex));
-	else if (operation == UNLOCK)
-		mutex_error_handler(pthread_mutex_unlock(mutex));
-	else if (operation == CREATE)
-		mutex_error_handler(pthread_mutex_init(mutex, NULL));
-	else if (operation == CDESTROY)
-		mutex_error_handler(pthread_mutex_destroy(mutex));
+	int status;
+
+	status = 0;
+	if (operation == MUTEX_LOCK)
+		status = pthread_mutex_lock(mutex);
+	else if (operation == MUTEX_UNLOCK)
+		status = pthread_mutex_unlock(mutex);
+	else if (operation == MUTEX_CREATE)
+		status = pthread_mutex_init(mutex, NULL);
+	else if (operation == MUTEX_DESTROY)
+		status = pthread_mutex_destroy(mutex);
 	else
-		warning_message("Wrong operation code for mutex.\n", NULL, 1); // check if this works
+	{
+		warning_msg("Wrong operation code for mutex.\n", NULL, 1);
+		exit(EXIT_FAILURE); // use a safe exit function to clean up
+	}
+	mutex_error_handler(operation, status);
 }

@@ -20,18 +20,16 @@
 
 typedef enum e_mutex_operation
 {
-    CREATE,
-    DESTROY,
-    LOCK,
-    UNLOCK,
-    CREATE,
-    JOIN,
+    MUTEX_CREATE,
+    MUTEX_DESTROY,
+    MUTEX_LOCK,
+    MUTEX_UNLOCK,
 } t_mutex_operation;
 
 typedef enum e_thread_operation 
 {
-    CREATE,
-    JOIN,
+    THREAD_CREATE,
+    THREAD_JOIN,
 } t_thread_operation;
 
 // structures - philo, monitor
@@ -40,7 +38,7 @@ typedef struct  s_table t_table;
 
 typedef struct s_fork
 {
-    pthread_mutex_t fork;
+    pthread_mutex_t *fork_mutex;
     int             fork_id;
 }   t_fork;
 
@@ -72,6 +70,8 @@ typedef struct  s_table
 // function prototypes
 
 int     warning_msg(char *str, char *detail, int exit_nbr);
-bool is_valid_input(int argc, char **argv);
-int int_atoi(char *str);
+bool    is_valid_input(int argc, char **argv);
+int     int_atoi(char *str);
 t_table *init_table(int argc, char **argv);
+void thread_operator(pthread_t *thread, void *(*routine)(void *), void *data, t_thread_operation operation);
+int mutex_operator(pthread_mutex_t *mutex, t_mutex_operation operation);
