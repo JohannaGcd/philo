@@ -1,5 +1,32 @@
 #include "philo.h"
 
+static bool start_dinner(t_table *table)
+{
+    int i;
+
+    i = 0;
+    if (table->must_eat == 0)
+    {
+        printf("All philosophers have already eaten enough.\n"); // transform with message function
+        return (true);
+    }
+    while (i < table->philo_nbr)
+    {
+        thread_operator(&table->philos[i].thread_id, start_dinner, &table->philos[i], THREAD_CREATE);
+        i++;
+    }
+    return (true);
+
+
+
+
+    
+}
+static void stop_dinner(t_table *table)
+{
+
+}
+
 /* Main:
     1. Checks input 
     2. Initialises the table 
@@ -15,7 +42,6 @@ int main(int argc, char **argv)
         return(warning_msg(STR_CORRECT_ARGS, NULL, EXIT_FAILURE));
     if (!is_valid_input(argc, argv))
         return (EXIT_FAILURE);
-    // here parse
     table = init_table(argc, argv);
     if (!table)
         return (EXIT_FAILURE);

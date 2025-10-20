@@ -32,6 +32,13 @@ typedef enum e_thread_operation
     THREAD_JOIN,
 } t_thread_operation;
 
+typedef enum e_time_code 
+{
+    SECOND,
+    MILLISECOND,
+    MICROECOND,
+} t_time_code;
+
 // structures - philo, monitor
 
 typedef struct  s_table t_table;
@@ -47,8 +54,8 @@ typedef struct s_philo {
     int         meals_nbr;
     bool        max_meals;
     long        last_meal_time;
-    t_fork      *fork_left;
-    t_fork      *fork_right;
+    t_fork      *fork_one;
+    t_fork      *fork_two;
     pthread_t   thread_id;
     t_table     *table;
 }   t_philo;
@@ -59,7 +66,7 @@ typedef struct  s_table
     long    time_to_die;
     long    time_to_eat;
     long    time_to_sleep;
-    int     max_meals;
+    int     must_eat;
     long    start;
     bool    end; // philo dies or all philos full
     t_fork  *forks;
@@ -75,3 +82,4 @@ int     int_atoi(char *str);
 t_table *init_table(int argc, char **argv);
 void thread_operator(pthread_t *thread, void *(*routine)(void *), void *data, t_thread_operation operation);
 int mutex_operator(pthread_mutex_t *mutex, t_mutex_operation operation);
+time_t get_time_in_ms(void);

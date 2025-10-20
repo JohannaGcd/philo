@@ -1,12 +1,29 @@
 #include "philo.h"
 
+// summarize each function
+// create makefile
+// create tester
 
-// do the same for threads
+static void assign_forks(t_philo *philo)
+{	
+	int id;
+	int total;
 
-
-
-// initialise a thread for each philo (and an extra one?)
-// initialise as many forks as philos
+	id = philo->philo_ID;
+	total = philo->table->philo_nbr;
+	if (id % 2 == 0)
+	{
+		// even philo: right then left
+		philo->fork_one = id;
+		philo->fork_two = (id + 1) % total;	
+	}
+	else
+	{
+		// odd philo: left then right
+		philo->fork_one = id;
+		philo->fork_two = (id + 1) % total;
+	}
+}
 
 t_fork *init_forks(t_table *table, int nbr, t_philo *philos)
 {
@@ -25,7 +42,7 @@ t_fork *init_forks(t_table *table, int nbr, t_philo *philos)
 	}
 	return (forks);
 }
-t_philo	*init_philos(t_table *table, int nbr) // or double opinteR?
+t_philo	*init_philos(t_table *table, int nbr)
 {
 	int i;
 	t_philo *philos;
@@ -38,9 +55,8 @@ t_philo	*init_philos(t_table *table, int nbr) // or double opinteR?
 	{
 		philos[i].philo_ID = i + 1;
 		philos[i].meals_nbr = 0;
-		philos[i].max_meals = table->max_meals;
-		philos[i].fork_left = &table->forks[i];
-		philos[i].fork_right = &table->forks[(i + 1) % nbr];
+		philos[i].max_meals = table->must_eat;
+		assign_forks(&philos[i]);
 		philos[i].table = table;
 		i++;
 	}
@@ -71,22 +87,21 @@ t_table *init_table(int argc, char **argv)
 	table = malloc(sizeof(t_table) * 1);
 	if (!table)
 		return (malloc_err(STR_ERR_MALLOC, "init_table", table));
-	while (argv[i])
+	while (argv[i]) // check incrementation
 	{
-		table->philo_nbr = int_atoi(argv[i++]) * 1000;
+		table->philo_nbr = int_atoi(argv[i++]);
 		table->time_to_die = atolong(argv[i++]) * 1000;
 		table->time_to_eat = atolong(argv[i++]) * 1000;
 		table->time_to_sleep = atolong(argv[i++]) * 1000;
-		table->max_meals = -1;
+		table->must_eat = -1;
 		if (argc == 5)
-			table->max_meals = int_atoi(argv[i]);
-		table->forks = init_forks(table, table->philo_nbr);
-		if (!table->forks)
-			return (malloc_err(STR_ERR_MALLOC, "init_forks", table));
+			table->must_eat = int_atoi(argv[i]);
 		table->philos = init_philos(table, table->philo_nbr);
 		if (!table->philos)
 			return (malloc_err(STR_ERR_MALLOC, "init_table", table));
-
+		table->forks = init_forks(table, table->philo_nbr, table->philos);
+		if (!table->forks)
+			return (malloc_err(STR_ERR_MALLOC, "init_forks", table));
 	}
 	return (table);
 }

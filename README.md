@@ -37,7 +37,10 @@ Tips to consider:
 - Ensure the code is free from data races, deadlocks, and memory leaks. You can use :
     — DRD: Run with valgrind --tool=drd to check for data races.
     — Helgrind: Run with valgrind --tool=helgrind to find lock issues and potential deadlocks.
-    — FSanitise: Compile with -fsanitize=thread to detect threading problems while running.
+    — FSanitise: Compile with -fsanitize=thread to detect threading problems while running
+    
+    what about allocating strategy ? use odd even or Resource ordering
+Always lock lower-index fork first
 
 Resources:
 - Medium: https://medium.com/@ruinadd/philosophers-42-guide-the-dining-philosophers-problem-893a24bc0fe2
