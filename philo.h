@@ -49,6 +49,7 @@ typedef struct s_fork
     int             fork_id;
 }   t_fork;
 
+// check if i really need longs, or if i can use ints
 typedef struct s_philo {
     int         philo_ID;
     int         meals_nbr;
@@ -58,6 +59,7 @@ typedef struct s_philo {
     t_fork      *fork_two;
     pthread_t   thread_id;
     t_table     *table;
+    pthread_mutex_t meal_time_lock;
 }   t_philo;
 
 typedef struct  s_table
@@ -67,10 +69,12 @@ typedef struct  s_table
     long    time_to_eat;
     long    time_to_sleep;
     int     must_eat;
-    long    start;
+    long    start_time;
     bool    end; // philo dies or all philos full
     t_fork  *forks;
     t_philo *philos;
+    pthread_t   faucheuse;
+    pthread_mutex_t table_lock;
 }   t_table;
 
 
@@ -83,3 +87,7 @@ t_table *init_table(int argc, char **argv);
 void thread_operator(pthread_t *thread, void *(*routine)(void *), void *data, t_thread_operation operation);
 int mutex_operator(pthread_mutex_t *mutex, t_mutex_operation operation);
 time_t get_time_in_ms(void);
+void    *philo_routine(void *data);
+void	write_long(pthread_mutex_t *mutex, long *dest, long value);
+long	return_long(pthread_mutex_t *mutex, long *value);
+void    coordinate_start(time_t start);

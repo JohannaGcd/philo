@@ -1,5 +1,11 @@
 #include "philo.h"
 
+void    coordinate_start(time_t start)
+{
+    while (get_time_in_ms() < start)
+        continue ;
+}
+
 //(get time) to continue
 
 time_t get_time_in_ms(void)
