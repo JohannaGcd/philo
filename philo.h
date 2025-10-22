@@ -39,13 +39,23 @@ typedef enum e_time_code
     MICROECOND,
 } t_time_code;
 
+typedef enum e_status
+{
+    DIED,
+    EATING,
+    SLEEPING,
+    THINKING,
+    GOT_FIRST_FORK,
+    GOT_SECOND_FORK,
+}   t_status;
+
 // structures - philo, monitor
 
 typedef struct  s_table t_table;
 
 typedef struct s_fork
 {
-    pthread_mutex_t *fork_mutex;
+    pthread_mutex_t fork_mutex;
     int             fork_id;
 }   t_fork;
 
@@ -53,7 +63,7 @@ typedef struct s_fork
 typedef struct s_philo {
     int         philo_ID;
     int         meals_nbr;
-    bool        max_meals;
+    int        max_meals;
     long        last_meal_time;
     t_fork      *fork_one;
     t_fork      *fork_two;
@@ -70,7 +80,7 @@ typedef struct  s_table
     long    time_to_sleep;
     int     must_eat;
     long    start_time;
-    bool    end; // philo dies or all philos full
+    bool    end;
     t_fork  *forks;
     t_philo *philos;
     pthread_t   faucheuse;
@@ -91,3 +101,4 @@ void    *philo_routine(void *data);
 void	write_long(pthread_mutex_t *mutex, long *dest, long value);
 long	return_long(pthread_mutex_t *mutex, long *value);
 void    coordinate_start(time_t start);
+void write_status(t_philo *philo, bool faucheuse_info, t_status status)

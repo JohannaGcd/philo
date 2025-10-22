@@ -1,5 +1,58 @@
 #include "philo.h"
 
+static void philo_eat_then_sleep(t_philo *philo)
+{
+    pthread_mutex_lock(&philo->fork_one->fork_mutex);
+    write_status(philo, false, GOT_FIRST_FORK);
+    pthread_mutex_lock(&philo->fork_two->fork_mutex);
+    write_status(philo, false, GOT_SECOND_FORK);
+    write_status(philo, false, EATING);
+    write_long(&philo->meal_time_lock, &philo->last_meal_time, get_time_in_ms());
+    philo_sleep(philo->table, philo->table->time_to_eat); // check Oversion
+    pthread_mutex_unlock(&philo->fork_one->fork_mutex);
+    pthread_mutex_unlock(&philo->fork_two->fork_mutex);
+}
+static void    philo_sleep(t_table *table, time_t time_to_sleep)
+{
+    time_t wake_up;
+
+    wake_up = get_time_in_ms() + time_to_sleep;
+    while (get_time_in_ms() < wake_up)
+    {
+        if (did_dinner_stop(table))
+            break;
+       usleep(100);
+    }
+}
+
+static void *single_philo(t_philo *philo)
+{
+    pthread_mutex_lock(&philo->fork_one->fork_mutex);
+    write_status(philo, false, GOT_FIRST_FORK);
+    philo_sleep(philo->table, philo->table->time_to_die);
+    write_status(philo, false, DIED);
+    pthread_mutex_unlock(&philo->fork_two->fork_mutex);
+    return (NULL);
+}
+
+static void philo_think(t_philo *philo, bool delay)
+{
+    time_t thinking_time;
+
+    pthread_mutex_lock(&philo->meal_time_lock);
+    thinking_time = (philo->table->time_to_die - (get_time_in_ms() - philo->last_meal_time) - philo->table->time_to_eat) / 2;
+    pthread_mutex_lock(&philo->meal_time_lock);
+    if (thinking_time < 0)
+        thinking_time = 0;
+    if (thinking_time == 0 && delay == true)
+        thinking_time = 1;
+    if (thinking_time > 600)
+        thinking_time = 200;
+    if (delay == false)
+        write_status(philo, false, THINKING);
+    philo_sleep(philo->table, thinking_time);
+}
+
 void    *philo_routine(void *data)
 {
     t_philo *philo;
@@ -10,13 +63,13 @@ void    *philo_routine(void *data)
     if (philo->table->time_to_die == 0)
         return (NULL);
     if (philo->table->philo_nbr == 1)
-        return (single_philo_routine(philo)); // TODO
+        return (single_philo(philo));
     else if (philo->philo_ID % 2)
-        think(philo, true);
+        philo_think(philo, true);
     while (did_dinner_stop(philo->table) == false)
     {
-        eat_sleep(philo);
-        think(philo, false);
+        philo_eat_then_sleep(philo);
+        philo_think(philo, false);
     }
     return (NULL); 
 }

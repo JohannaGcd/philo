@@ -1,5 +1,31 @@
 #include "philo.h"
 
+
+static void print_status(t_philo *philo, char *s)
+{
+    printf("%ld %d %s\n", get_time_in_ms() - philo->table->start_time, philo->id + 1, s);
+}
+void write_status(t_philo *philo, bool faucheuse_info, t_status status)
+{
+    pthread_mutex_lock(&philo->table->table_lock);
+    if (did_dinner_stop(philo->table) == true && faucheuse_info == false)
+    {
+       pthread_mutex_unlock(&philo->table->table_lock);
+       return;
+    }
+    if (status == DIED)
+        print_status(philo, "died");
+    else if (status == EATING)
+        print_status(philo, "is eating");
+    else if (status == SLEEPING)
+        print_status(philo, "is sleeping"); 
+    else if (status == THINKING)
+        print_status(philo, "is thinking");
+    else if (status == GOT_FIRST_FORK || status == GOT_SECOND_FORK)
+        print_status(philo, "has taken a fork"); 
+    pthread_mutex_unlock(&philo->table->table_lock);
+}
+
 void    coordinate_start(time_t start)
 {
     while (get_time_in_ms() < start)

@@ -3,17 +3,27 @@
 static bool must_stop_dinner(t_table *table)
 {
     int i;
-    bool philo_all_full;
-    t_philo *philo;
+    bool all_philo_full;
 
-    philo_all_full = true;
-    philo = table->philos;
+    all_philo_full = true;
     i = 0;
     while (i < table->philo_nbr)
     {
-        write_long(&philo[i].meal_time_lock, philo[i].last_meal_time, philo[i]->//which value should i passs? am i reading or writing?);
-    }// continue
-    if (table->must_eat != -1 && philo_all_full == true)
+        pthread_mutex_lock(&table->philos[i].meal_time_lock);
+        if (kill_philo(table->philos[i]))
+        {
+            pthread_mutex_unlock(&table->philos[i].meal_time_lock);
+            return true;
+        }
+        if (table->must_eat != -1)
+        {
+            if (table->philos[i].meals_nbr < table->must_eat)
+                all_philo_full = false;
+        }
+        pthread_mutex_unlock(&table->philos[i].meal_time_lock);
+        i++;
+    }
+    if (table->must_eat != -1 && all_philo_full == true)
     {
         write_bool(&table->table_lock, table->end, true);
         return (true);
