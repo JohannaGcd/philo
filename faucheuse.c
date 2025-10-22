@@ -1,5 +1,19 @@
 #include "philo.h"
 
+
+static bool kill_philo(t_philo *philo)
+{
+    time_t time;
+    
+    time = get_time_in_ms();
+    if ((time - philo->last_meal_time) >= philo->table->time_to_die)
+    {
+        write_bool(&philo->table->table_lock, &philo->table->end, true);
+        write_status(philo, true, DIED);
+        return (true);
+    }
+    return (false);
+}
 static bool must_stop_dinner(t_table *table)
 {
     int i;
@@ -42,11 +56,11 @@ void    *faucheuse(void *data)
         return (NULL);
     set_stop_flag(table, false);
     coordinate_start(table->start_time);
-    while (true) // how does this work?
+    while (true)
     {
         if (must_stop_dinner(table) == true)
             return (NULL);
-        usleep(1000); // why? see if it should be replaced with custom function
+        usleep(1000);
     }
     return (NULL);
 }
