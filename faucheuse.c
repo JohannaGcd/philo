@@ -24,10 +24,10 @@ static bool must_stop_dinner(t_table *table)
     while (i < table->philo_nbr)
     {
         pthread_mutex_lock(&table->philos[i].meal_time_lock);
-        if (kill_philo(table->philos[i]))
+        if (kill_philo(&table->philos[i]))
         {
             pthread_mutex_unlock(&table->philos[i].meal_time_lock);
-            return true;
+            return (true);
         }
         if (table->must_eat != -1)
         {

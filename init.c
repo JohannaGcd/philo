@@ -1,9 +1,5 @@
 #include "philo.h"
 
-// summarize each function
-// create makefile
-// create tester
-
 static void assign_forks(t_philo *philo)
 {	
 	int id;
@@ -31,7 +27,7 @@ t_fork *init_forks(t_table *table, int nbr, t_philo *philos)
 	i = 0;
 	forks = malloc(sizeof(t_fork) * nbr);
 	if (!forks)
-		return (malloc_err(STR_ERR_MALLOC), "init_forks", table); // make sure this exits or returns correctly with freeing, + NULL
+		return (err_null(STR_ERR_MALLOC), "init_forks", table);
 	while (i < nbr)
 	{
 		forks[i].fork_id = i;
@@ -54,7 +50,7 @@ t_philo	*init_philos(t_table *table, int nbr)
 	i = 0;
 	philos = malloc(sizeof(t_philo) * nbr);
 	if (!philos)
-		return (malloc_err(STR_ERR_MALLOC), "init_philos", table); // check safe return, should be NULL
+		return (err_null(STR_ERR_MALLOC), "init_philos", table);
 	while (i < nbr)
 	{
 		philos[i].philo_ID = i + 1;
@@ -90,7 +86,7 @@ t_table *init_table(int argc, char **argv)
 	i = 1;
 	table = malloc(sizeof(t_table) * 1);
 	if (!table)
-		return (malloc_err(STR_ERR_MALLOC, "init_table", table));
+		return (err_null(STR_ERR_MALLOC, "init_table", table));
 	table->philo_nbr = int_atoi(argv[i++]);
 	table->time_to_die = atolong(argv[i++]);
 	table->time_to_eat = atolong(argv[i++]);
@@ -99,12 +95,12 @@ t_table *init_table(int argc, char **argv)
 	if (argc == 6)
 		table->must_eat = int_atoi(argv[i]);
 	table->end = false;
-	pthread_mutex_init(&table->table_lock, NULL); // check if correct here
+	pthread_mutex_init(&table->table_lock, NULL);
 	table->philos = init_philos(table, table->philo_nbr);
 	if (!table->philos)
-		return (malloc_err(STR_ERR_MALLOC, "init_table", table));
+		return (err_null(STR_ERR_MALLOC, "init_table: philos", table));
 	table->forks = init_forks(table, table->philo_nbr, table->philos);
 	if (!table->forks)
-		return (malloc_err(STR_ERR_MALLOC, "init_forks", table));
+		return (err_null(STR_ERR_MALLOC, "init_table: forks", table));
 	return (table);
 }

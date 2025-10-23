@@ -1,8 +1,5 @@
 #include "philo.h"
 
-/* mutex_error_handler: 
-
-*/
 static void	mutex_error_handler(t_mutex_operation operator, int status)
 {
 	if (status == 0)

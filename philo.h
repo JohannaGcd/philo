@@ -90,7 +90,9 @@ typedef struct  s_table
 
 // function prototypes
 
-int     warning_msg(char *str, char *detail, int exit_nbr);
+int     print_msg(char *str, char *detail, int exit_nbr);
+int    err_null(char *str, char *details, t_table *table);
+void    err_exit(char *str, char *details, t_table *table);
 bool    is_valid_input(int argc, char **argv);
 int     int_atoi(char *str);
 t_table *init_table(int argc, char **argv);
@@ -101,4 +103,5 @@ void    *philo_routine(void *data);
 void	write_long(pthread_mutex_t *mutex, long *dest, long value);
 long	return_long(pthread_mutex_t *mutex, long *value);
 void    coordinate_start(time_t start);
-void write_status(t_philo *philo, bool faucheuse_info, t_status status)
+void write_status(t_philo *philo, bool faucheuse_info, t_status status);
+void    *faucheuse(void *data);
