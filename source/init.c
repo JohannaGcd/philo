@@ -5,7 +5,7 @@ static void assign_forks(t_philo *philo)
 	int id;
 	int total;
 
-	id = philo->philo_ID; // should it be philo_ID -1 here?
+	id = philo->philo_ID - 1;
 	total = philo->table->philo_nbr;
 	if (id % 2 == 0)
 	{
@@ -34,6 +34,7 @@ static t_fork *init_forks(t_table *table, int nbr)
 		mutex_operator(&forks[i].fork_mutex, MUTEX_CREATE);
 		i++;
 	}
+	table->forks = forks;
 	i = 0;
 	while (i < nbr)
 	{
@@ -57,7 +58,7 @@ static t_philo	*init_philos(t_table *table, int nbr)
 		philos[i].meals_nbr = 0;
 		philos[i].max_meals = table->must_eat;
 		philos[i].table = table;
-		pthread_mutex_init(&philos[i].meal_time_lock, NULL);
+		mutex_operator(&philos[i].meal_time_lock, MUTEX_CREATE);
 		i++;
 	}
 	return (philos);

@@ -5,6 +5,17 @@ static bool start_dinner(t_table *table)
     int i;
 
     i = 0;
+    /*printf("DEBUG: starting dinner: philo_nbr=%d start_time=%ld must_eat=%d\n",
+       table->philo_nbr, table->start_time, table->must_eat);
+    for (int i = 0; i < table->philo_nbr; ++i)
+    {
+        printf("DEBUG: philos[%d] addr=%p id=%d last_meal=%ld forks: one=%p two=%p\n",
+            i, (void*)&table->philos[i], table->philos[i].philo_ID,
+            table->philos[i].last_meal_time,
+            (void*)table->philos[i].fork_one, (void*)table->philos[i].fork_two);
+    }
+    for (int i = 0; i < table->philo_nbr; ++i)
+    printf("DEBUG: forks[%d] addr=%p mutex=%p\n", i, (void*)&table->forks[i], (void*)&table->forks[i].fork_mutex);*/
     if (table->must_eat == 0) // double check if this should be done in philo_routine or if its fine here
     {
         printf("All philosophers have already eaten enough.\n"); // transform with message function
@@ -53,7 +64,7 @@ int main(int argc, char **argv)
     if (argc < 5 || argc > 6)
         return(print_msg(STR_CORRECT_ARGS, NULL, EXIT_FAILURE));
     if (!is_valid_input(argc, argv))
-        return (err_exit(STR_ERR_DIGITS_ONLY, "Invalid input format", table));
+        return (print_msg(STR_ERR_DIGITS_ONLY, "Invalid input format", EXIT_FAILURE));
     table = init_table(argc, argv);
     if (!table)
         return (err_exit(STR_ERR_MALLOC, "Failed to initialise table", table));

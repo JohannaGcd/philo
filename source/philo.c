@@ -27,11 +27,23 @@ void    philo_sleep(t_table *table, time_t time_to_sleep)
 
 static void *single_philo(t_philo *philo)
 {
+     printf("DEBUG: single_philo start: philo=%p id=%d fork_one=%p fork_two=%p\n",
+           (void*)philo, philo->philo_ID, (void*)philo->fork_one, (void*)philo->fork_two);
+    if (!philo->fork_one) {
+        fprintf(stderr, "BUG: single_philo: fork_one is NULL\n");
+        return NULL;
+    }
     pthread_mutex_lock(&philo->fork_one->fork_mutex);
+    printf("DEBUG: locked fork_one for id=%d\n", philo->philo_ID);
     write_status(philo, false, GOT_FIRST_FORK);
+    printf("DEBUG: after write_status(GOT_FIRST_FORK) id=%d\n", philo->philo_ID);
+
     philo_sleep(philo->table, philo->table->time_to_die);
+    printf("DEBUG: after philo_sleep for id=%d\n", philo->philo_ID);
     write_status(philo, false, DIED);
+    printf("DEBUG: after write_status(DIED) id=%d\n", philo->philo_ID);
     pthread_mutex_unlock(&philo->fork_two->fork_mutex);
+    printf("DEBUG: after unlock fork_one id=%d -- returning\n", philo->philo_ID);
     return (NULL);
 }
 

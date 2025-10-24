@@ -2,16 +2,14 @@
 
 static void print_status(t_philo *philo, char *s)
 {
-    printf("%ld %d %s\n", get_time_in_ms() - philo->table->start_time, philo->philo_ID + 1, s);
+    printf("%ld %d %s\n", get_time_in_ms() - philo->table->start_time, philo->philo_ID, s);
 }
 void write_status(t_philo *philo, bool faucheuse_info, t_status status)
 {
-    pthread_mutex_lock(&philo->table->table_lock);
     if (must_stop_dinner(philo->table) == true && faucheuse_info == false)
-    {
-       pthread_mutex_unlock(&philo->table->table_lock);
        return;
-    }
+    printf("DEBUG: write_status enter id=%d\n", philo->philo_ID);
+    pthread_mutex_lock(&philo->table->table_lock);
     if (status == DIED)
         print_status(philo, "died");
     else if (status == EATING)
@@ -23,6 +21,7 @@ void write_status(t_philo *philo, bool faucheuse_info, t_status status)
     else if (status == GOT_FIRST_FORK || status == GOT_SECOND_FORK)
         print_status(philo, "has taken a fork"); 
     pthread_mutex_unlock(&philo->table->table_lock);
+     printf("DEBUG: write_status exit id=%d\n", philo->philo_ID);
 }
 
 void    coordinate_start(time_t start)
@@ -36,7 +35,7 @@ time_t get_time_in_ms(void)
     struct timeval time;
 
     gettimeofday(&time, NULL);
-    return ((time.tv_sec * 1000) + (time.tv_sec / 1000));
+    return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 /*void    precise_usleep(long usec, t_table *table)
 {
