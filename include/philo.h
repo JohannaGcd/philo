@@ -91,17 +91,22 @@ typedef struct  s_table
 // function prototypes
 
 int     print_msg(char *str, char *detail, int exit_nbr);
-int    err_null(char *str, char *details, t_table *table);
-void    err_exit(char *str, char *details, t_table *table);
+void    *err_null(char *str, char *details, t_table *table);
+int    err_exit(char *str, char *details, t_table *table);
 bool    is_valid_input(int argc, char **argv);
 int     int_atoi(char *str);
 t_table *init_table(int argc, char **argv);
-void thread_operator(pthread_t *thread, void *(*routine)(void *), void *data, t_thread_operation operation);
+int thread_operator(pthread_t *thread, void *(*routine)(void *), void *data, t_thread_operation operation);
 int mutex_operator(pthread_mutex_t *mutex, t_mutex_operation operation);
 time_t get_time_in_ms(void);
 void    *philo_routine(void *data);
+void	write_bool(pthread_mutex_t *mutex, bool *dest, bool value);
 void	write_long(pthread_mutex_t *mutex, long *dest, long value);
 long	return_long(pthread_mutex_t *mutex, long *value);
 void    coordinate_start(time_t start);
 void write_status(t_philo *philo, bool faucheuse_info, t_status status);
 void    *faucheuse(void *data);
+void    *free_table(t_table *table);
+void    destroy_mutexes(t_table *table);
+bool must_stop_dinner(t_table *table);
+void    philo_sleep(t_table *table, time_t time_to_sleep);

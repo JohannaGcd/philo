@@ -35,7 +35,7 @@ static void stop_dinner(t_table *table)
     }
     if (table->philo_nbr > 1)
         pthread_join(table->faucheuse, NULL);
-    destroy_all_mutexes(table);
+    destroy_mutexes(table);
     free_table(table);
 }
 
@@ -45,8 +45,6 @@ static void stop_dinner(t_table *table)
     3. Launches the routine 
     4. Stops the routine & cleans up (when philos have eaten the nbr of meals specified or if one dies)
 */
-
-// TODO: check if return exit here are a repeat from called function
 int main(int argc, char **argv)
 {
     t_table *table;
@@ -60,7 +58,7 @@ int main(int argc, char **argv)
     if (!table)
         return (err_exit(STR_ERR_MALLOC, "Failed to initialise table", table));
     if (!start_dinner(table))
-        return (err_exit("Failed to start dinner simulation.\n", NULL, table);
-    stop_dinner(table); 
+        return (err_exit("Failed to start dinner simulation.\n", NULL, table));
+    stop_dinner(table);
     return (EXIT_SUCCESS);
 }

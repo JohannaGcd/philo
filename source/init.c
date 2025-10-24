@@ -19,7 +19,7 @@ static void assign_forks(t_philo *philo)
 	}
 }
 
-t_fork *init_forks(t_table *table, int nbr, t_philo *philos)
+static t_fork *init_forks(t_table *table, int nbr)
 {
 	int i;
 	t_fork *forks;
@@ -27,7 +27,7 @@ t_fork *init_forks(t_table *table, int nbr, t_philo *philos)
 	i = 0;
 	forks = malloc(sizeof(t_fork) * nbr);
 	if (!forks)
-		return (err_null(STR_ERR_MALLOC), "init_forks", table);
+		return (err_null(STR_ERR_MALLOC, "init_forks", table));
 	while (i < nbr)
 	{
 		forks[i].fork_id = i;
@@ -42,7 +42,7 @@ t_fork *init_forks(t_table *table, int nbr, t_philo *philos)
 	}
 	return (forks);
 }
-t_philo	*init_philos(t_table *table, int nbr)
+static t_philo	*init_philos(t_table *table, int nbr)
 {
 	int i;
 	t_philo *philos;
@@ -50,7 +50,7 @@ t_philo	*init_philos(t_table *table, int nbr)
 	i = 0;
 	philos = malloc(sizeof(t_philo) * nbr);
 	if (!philos)
-		return (err_null(STR_ERR_MALLOC), "init_philos", table);
+		return (err_null(STR_ERR_MALLOC, "init_philos", table));
 	while (i < nbr)
 	{
 		philos[i].philo_ID = i + 1;
@@ -63,7 +63,7 @@ t_philo	*init_philos(t_table *table, int nbr)
 	return (philos);
 }
 
-long	atolong (char *str)
+static long	atolong (char *str)
 {
 	int i;
 	unsigned long nbr;
@@ -99,7 +99,7 @@ t_table *init_table(int argc, char **argv)
 	table->philos = init_philos(table, table->philo_nbr);
 	if (!table->philos)
 		return (err_null(STR_ERR_MALLOC, "init_table: philos", table));
-	table->forks = init_forks(table, table->philo_nbr, table->philos);
+	table->forks = init_forks(table, table->philo_nbr);
 	if (!table->forks)
 		return (err_null(STR_ERR_MALLOC, "init_table: forks", table));
 	return (table);

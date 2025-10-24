@@ -16,8 +16,6 @@ void    destroy_mutexes(t_table *table)
 
 void    *free_table(t_table *table)
 {
-    int i;
-    
     if (!table)
         return (NULL);
     if (table->forks)
@@ -37,7 +35,7 @@ int print_msg(char *str, char *detail, int exit_nbr)
     return (exit_nbr);
 }
 
-int    err_null(char *str, char *details, t_table *table)
+void    *err_null(char *str, char *details, t_table *table)
 {
     if (table != NULL)
         free_table(NULL);
@@ -45,7 +43,7 @@ int    err_null(char *str, char *details, t_table *table)
     return (NULL);
 }
 
-void    err_exit(char *str, char *details, t_table *table)
+int    err_exit(char *str, char *details, t_table *table)
 {
     if (table != NULL)
         free_table(table);

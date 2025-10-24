@@ -14,7 +14,7 @@ static bool kill_philo(t_philo *philo)
     }
     return (false);
 }
-static bool must_stop_dinner(t_table *table)
+bool must_stop_dinner(t_table *table)
 {
     int i;
     bool all_philo_full;
@@ -39,7 +39,7 @@ static bool must_stop_dinner(t_table *table)
     }
     if (table->must_eat != -1 && all_philo_full == true)
     {
-        write_bool(&table->table_lock, table->end, true);
+        write_bool(&table->table_lock, &table->end, true);
         return (true);
     }
     return (false);
@@ -54,7 +54,7 @@ void    *faucheuse(void *data)
     table = (t_table *)data;
     if (table->must_eat == 0)
         return (NULL);
-    set_stop_flag(table, false);
+    write_bool(&table->table_lock, &table->end, false);
     coordinate_start(table->start_time);
     while (true)
     {

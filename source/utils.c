@@ -2,12 +2,12 @@
 
 static void print_status(t_philo *philo, char *s)
 {
-    printf("%ld %d %s\n", get_time_in_ms() - philo->table->start_time, philo->id + 1, s);
+    printf("%ld %d %s\n", get_time_in_ms() - philo->table->start_time, philo->philo_ID + 1, s);
 }
 void write_status(t_philo *philo, bool faucheuse_info, t_status status)
 {
     pthread_mutex_lock(&philo->table->table_lock);
-    if (did_dinner_stop(philo->table) == true && faucheuse_info == false)
+    if (must_stop_dinner(philo->table) == true && faucheuse_info == false)
     {
        pthread_mutex_unlock(&philo->table->table_lock);
        return;
@@ -35,11 +35,10 @@ time_t get_time_in_ms(void)
 {
     struct timeval time;
 
-    if (gettimeofday(&time, NULL) != 0)
-        exit ; //write exit error
+    gettimeofday(&time, NULL);
     return ((time.tv_sec * 1000) + (time.tv_sec / 1000));
 }
-void    precise_usleep(long usec, t_table *table)
+/*void    precise_usleep(long usec, t_table *table)
 {
     long start;
     long elapsed;
@@ -54,4 +53,4 @@ void    precise_usleep(long usec, t_table *table)
         remaining = usec - elapsed;
         // spinlock threshold? what's a spinlock? why useful here?
     } 
-}
+}*/

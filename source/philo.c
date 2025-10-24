@@ -12,14 +12,14 @@ static void philo_eat_then_sleep(t_philo *philo)
     pthread_mutex_unlock(&philo->fork_one->fork_mutex);
     pthread_mutex_unlock(&philo->fork_two->fork_mutex);
 }
-static void    philo_sleep(t_table *table, time_t time_to_sleep)
+void    philo_sleep(t_table *table, time_t time_to_sleep)
 {
     time_t wake_up;
 
     wake_up = get_time_in_ms() + time_to_sleep;
     while (get_time_in_ms() < wake_up)
     {
-        if (did_dinner_stop(table))
+        if (must_stop_dinner(table))
             break;
        usleep(100);
     }
@@ -58,7 +58,7 @@ void    *philo_routine(void *data)
     t_philo *philo;
 
     philo = (t_philo *)data;
-    write_long(&philo->meal_time_lock, philo->last_meal_time, philo->table->start_time);
+    write_long(&philo->meal_time_lock, &philo->last_meal_time, philo->table->start_time);
     coordinate_start(philo->table->start_time);
     if (philo->table->time_to_die == 0)
         return (NULL);
@@ -66,7 +66,7 @@ void    *philo_routine(void *data)
         return (single_philo(philo));
     else if (philo->philo_ID % 2)
         philo_think(philo, true);
-    while (did_dinner_stop(philo->table) == false)
+    while (must_stop_dinner(philo->table) == false)
     {
         philo_eat_then_sleep(philo);
         philo_think(philo, false);

@@ -54,12 +54,12 @@ bool    is_valid_input(int argc, char **argv)
     while (i < argc)
     {
         if (!only_digits(argv[i]))
-            return (warning_msg(STR_ERR_DIGITS_ONLY, argv[i], false));
+            return (print_msg(STR_ERR_DIGITS_ONLY, argv[i], false));
         nbr = int_atoi(argv[i]);
         if (i != 1 && (nbr == 0 || nbr > MAX_PHILO))
-            return (warning_msg(STR_ERR_MAX_PHILO, NULL, false));
+            return (print_msg(STR_ERR_MAX_PHILO, NULL, false));
         if (i != 1 && (nbr == -1))
-            return (warning_msg(STR_ERR_DIGITS_ONLY, argv[i], false));
+            return (print_msg(STR_ERR_DIGITS_ONLY, argv[i], false));
     }
     return (true);
 }
