@@ -14,6 +14,11 @@ static bool kill_philo(t_philo *philo)
     }
     return (false);
 }
+
+bool has_dinner_stopped(t_table *table)
+{
+    return (return_bool(&table->table_lock, &table->end));
+}
 bool must_stop_dinner(t_table *table)
 {
     int i;

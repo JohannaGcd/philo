@@ -42,7 +42,6 @@ void	write_long(pthread_mutex_t *mutex, long *dest, long value)
 	mutex_operator(mutex, MUTEX_LOCK);
 	*dest = value;
 	mutex_operator(mutex, MUTEX_UNLOCK);
-
 }
 
 long	return_long(pthread_mutex_t *mutex, long *value)

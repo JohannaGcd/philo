@@ -7,8 +7,8 @@ static void print_status(t_philo *philo, char *s)
 void write_status(t_philo *philo, bool faucheuse_info, t_status status)
 {
     printf("DEBUG: TEST write_status enter id=%d\n", philo->philo_ID); 
-    if (must_stop_dinner(philo->table) == true && faucheuse_info == false)
-       return;
+    if (has_dinner_stopped(philo->table) == true && faucheuse_info == false)
+        return;
     printf("DEBUG: write_status enter id=%d\n", philo->philo_ID);
     pthread_mutex_lock(&philo->table->table_lock);
     if (status == DIED)
