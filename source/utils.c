@@ -6,10 +6,10 @@ static void print_status(t_philo *philo, char *s)
 }
 void write_status(t_philo *philo, bool faucheuse_info, t_status status)
 {
-    printf("DEBUG: TEST write_status enter id=%d\n", philo->philo_ID); 
+    //printf("DEBUG: TEST write_status enter id=%d\n", philo->philo_ID); 
     if (has_dinner_stopped(philo->table) == true && faucheuse_info == false)
         return;
-    printf("DEBUG: write_status enter id=%d\n", philo->philo_ID);
+    //printf("DEBUG: write_status enter id=%d\n", philo->philo_ID);
     pthread_mutex_lock(&philo->table->table_lock);
     if (status == DIED)
         print_status(philo, "died");
@@ -22,7 +22,7 @@ void write_status(t_philo *philo, bool faucheuse_info, t_status status)
     else if (status == GOT_FIRST_FORK || status == GOT_SECOND_FORK)
         print_status(philo, "has taken a fork"); 
     pthread_mutex_unlock(&philo->table->table_lock);
-    printf("DEBUG: write_status exit id=%d\n", philo->philo_ID);
+    //printf("DEBUG: write_status exit id=%d\n", philo->philo_ID);
 }
 
 void    coordinate_start(time_t start)

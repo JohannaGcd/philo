@@ -16,6 +16,24 @@ static bool start_dinner(t_table *table)
     }
     for (int i = 0; i < table->philo_nbr; ++i)
     printf("DEBUG: forks[%d] addr=%p mutex=%p\n", i, (void*)&table->forks[i], (void*)&table->forks[i].fork_mutex);*/
+    /*printf("DEBUG: starting dinner: philo_nbr=%d start_time=%ld must_eat=%d\n",
+       table->philo_nbr, table->start_time, table->must_eat);
+    for (int i = 0; i < table->philo_nbr; ++i)
+    {
+        printf("DEBUG: philos[%d] addr=%p philo_ID=%d meals=%d last_meal=%ld fork_one=%p fork_two=%p thread_id=%p\n",
+            i,
+            (void*)&table->philos[i],
+            table->philos[i].philo_ID,
+            table->philos[i].meals_nbr,
+            table->philos[i].last_meal_time,
+            (void*)table->philos[i].fork_one,
+            (void*)table->philos[i].fork_two,
+            (void*)table->philos[i].thread_id);
+    }
+    for (int i = 0; i < table->philo_nbr; ++i)
+        printf("DEBUG: forks[%d] addr=%p mutex=%p\n", i, (void*)&table->forks[i], (void*)&table->forks[i].fork_mutex);
+    fflush(stdout);*/
+
     if (table->must_eat == 0) // double check if this should be done in philo_routine or if its fine here
     {
         printf("All philosophers have already eaten enough.\n"); // transform with message function

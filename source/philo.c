@@ -19,7 +19,7 @@ void    philo_sleep(t_table *table, time_t time_to_sleep)
     wake_up = get_time_in_ms() + time_to_sleep;
     while (get_time_in_ms() < wake_up)
     {
-        if (must_stop_dinner(table))
+        if (has_dinner_stopped(table))
             break;
        usleep(100);
     }
@@ -53,7 +53,7 @@ static void philo_think(t_philo *philo, bool delay)
 
     pthread_mutex_lock(&philo->meal_time_lock);
     thinking_time = (philo->table->time_to_die - (get_time_in_ms() - philo->last_meal_time) - philo->table->time_to_eat) / 2;
-    pthread_mutex_lock(&philo->meal_time_lock);
+    pthread_mutex_unlock(&philo->meal_time_lock);
     if (thinking_time < 0)
         thinking_time = 0;
     if (thinking_time == 0 && delay == true)
@@ -78,7 +78,7 @@ void    *philo_routine(void *data)
         return (single_philo(philo));
     else if (philo->philo_ID % 2)
         philo_think(philo, true);
-    while (must_stop_dinner(philo->table) == false)
+    while (has_dinner_stopped(philo->table) == false)
     {
         philo_eat_then_sleep(philo);
         philo_think(philo, false);
