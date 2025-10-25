@@ -9,6 +9,9 @@ static void philo_eat_then_sleep(t_philo *philo)
     write_status(philo, false, EATING);
     write_long(&philo->meal_time_lock, &philo->last_meal_time, get_time_in_ms());
     philo_sleep(philo->table, philo->table->time_to_eat);
+    if (has_dinner_stopped(philo->table) == false)
+        write_int(&philo->meal_time_lock, &philo->meals_nbr, philo->meals_nbr + 1);
+    write_status(philo, false, SLEEPING);
     pthread_mutex_unlock(&philo->fork_one->fork_mutex);
     pthread_mutex_unlock(&philo->fork_two->fork_mutex);
 }

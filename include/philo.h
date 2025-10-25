@@ -112,3 +112,4 @@ bool must_stop_dinner(t_table *table);
 void    philo_sleep(t_table *table, time_t time_to_sleep);
 bool	return_bool(pthread_mutex_t *mutex, bool *value);
 bool has_dinner_stopped(t_table *table);
+void	write_int(pthread_mutex_t *mutex, int *dest, int value);

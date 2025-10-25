@@ -17,12 +17,11 @@ bool	return_bool(pthread_mutex_t *mutex, bool *value)
 	mutex_operator(mutex, MUTEX_UNLOCK);
 	return (ret);
 }
-/* void	write_int(pthread_mutex_t *mutex, int *dest, int value)
+void	write_int(pthread_mutex_t *mutex, int *dest, int value)
 {
 	mutex_operator(mutex, MUTEX_LOCK);
 	*dest = value;
 	mutex_operator(mutex, MUTEX_UNLOCK);
-
 }
 
 int	return_int(pthread_mutex_t *mutex, int *value)
@@ -34,7 +33,7 @@ int	return_int(pthread_mutex_t *mutex, int *value)
 	mutex_operator(mutex, MUTEX_UNLOCK);
 	return (ret);
 }
- */
+
 // check if i really need longs, or if i can use ints
 
 void	write_long(pthread_mutex_t *mutex, long *dest, long value)
