@@ -30,7 +30,8 @@ static bool start_dinner(t_table *table)
                 philo_routine, &table->philos[i], THREAD_CREATE);
             i++;
         }
-        thread_operator(&table->faucheuse, faucheuse, table, THREAD_CREATE);
+        if (table->philo_nbr > 1)
+            thread_operator(&table->faucheuse, faucheuse, table, THREAD_CREATE);
     }
     return (true);
 }
