@@ -6,12 +6,17 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/27 10:42:00 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/10/27 14:07:45 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/10/27 16:47:47 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/* mutex_error_handler:
+	* Handles and reports pthread_mutex error codes.
+	* Prints a readable message describing the failure.
+	* Returns EXIT_SUCCESS if no error or prints details otherwise.
+*/
 static int	mutex_error_handler(t_mutex_operation operator, int status)
 {
 	if (status == 0)
@@ -39,8 +44,10 @@ static int	mutex_error_handler(t_mutex_operation operator, int status)
 	return (print_msg("Unknown mutex error\n", NULL, EXIT_FAILURE));
 }
 
-/* mutex_operator
-
+/* mutex_operator:
+	* Performs a mutex operation safely (lock, unlock, create, destroy).
+	* Handles all pthread_mutex calls and centralizes error checking.
+	* Returns the status code processed by mutex_error_handler().
 */
 int	mutex_operator(pthread_mutex_t *mutex, t_mutex_operation operation)
 {

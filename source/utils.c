@@ -6,18 +6,27 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/27 10:48:46 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/10/27 10:56:00 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/10/27 16:49:53 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/* print_status:
+	* Formats and prints a status message for a philosopher.
+	* Displays timestamp, philosopher ID, and activity text.
+*/
 static void	print_status(t_philo *philo, char *s)
 {
 	printf("%ld %d %s\n", get_time_in_ms() - philo->table->start_time,
 		philo->philo_id, s);
 }
 
+/* write_status:
+	* Prints a philosopher’s current action in a thread-safe way.
+	* Locks the table mutex to prevent overlapping outputs.
+	* Ignores messages from philosophers after the dinner ends.
+*/
 void	write_status(t_philo *philo, bool faucheuse_info, t_status status)
 {
 	if (has_dinner_stopped(philo->table) == true && faucheuse_info == false)
@@ -36,12 +45,21 @@ void	write_status(t_philo *philo, bool faucheuse_info, t_status status)
 	pthread_mutex_unlock(&philo->table->table_lock);
 }
 
+/* coordinate_start:
+	* Synchronizes thread start times.
+	* Busy-waits until the global start timestamp is reached.
+	* Ensures all threads begin the simulation together.
+*/
 void	coordinate_start(time_t start)
 {
 	while (get_time_in_ms() < start)
 		continue ;
 }
 
+/* get_time_in_ms:
+	* Returns the current system time in milliseconds.
+	* Used for timing actions and measuring philosopher delays.
+*/
 time_t	get_time_in_ms(void)
 {
 	struct timeval	time;

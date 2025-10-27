@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/27 10:46:56 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/10/27 14:05:12 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/10/27 16:40:26 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ static bool	only_digits(char *str)
 	}
 	return (true);
 }
+
 /* is_valid_input:
 	Checks if input is composed of digits only,
 	Not negative and not bigger than INT_MAX,
 	Meets number of philo requirement (between 1 and 200).
 	Returns true is all args are valid, false otherwise.
 */
-
 bool	is_valid_input(int argc, char **argv)
 {
 	int		i;

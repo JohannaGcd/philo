@@ -6,12 +6,17 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/27 11:01:17 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/10/27 14:08:49 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/10/27 14:35:09 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/* assign_forks:
+	* Assigns the two forks each philosopher will use.
+	* Even philosophers pick the left fork first, odd ones pick the right.
+	* This alternating order reduces the risk of deadlocks.
+*/
 static void	assign_forks(t_philo *philo)
 {
 	int	id;
@@ -31,6 +36,12 @@ static void	assign_forks(t_philo *philo)
 	}
 }
 
+/* init_forks:
+	* Allocates memory for all forks on the table.
+	* Creates a mutex for each fork to control shared access.
+	* After initialization, links each philosopher to its two forks.
+	* Returns a pointer to the fork array or NULL if allocation fails.
+*/
 static t_fork	*init_forks(t_table *table, int nbr)
 {
 	int		i;
@@ -55,7 +66,12 @@ static t_fork	*init_forks(t_table *table, int nbr)
 	}
 	return (forks);
 }
-
+/* init_philos:
+	* Allocates memory and initializes each philosopher structure.
+	* Sets IDs, meal counters, and maximum meal limits.
+	* Each philosopher receives a lock to protect its last meal time.
+	* Returns a pointer to the philosopher array or NULL on failure.
+*/
 static t_philo	*init_philos(t_table *table, int nbr)
 {
 	int		i;
@@ -77,6 +93,11 @@ static t_philo	*init_philos(t_table *table, int nbr)
 	return (philos);
 }
 
+/* atolong:
+	* Converts a string of digits into a long integer.
+	* Used to parse time values from command-line arguments.
+	* Assumes the input is valid and contains only numeric characters.
+*/
 static long	atolong(char *str)
 {
 	int				i;
@@ -91,7 +112,13 @@ static long	atolong(char *str)
 	}
 	return (nbr);
 }
-
+/* init_table:
+	* Creates and initializes the main table structure for the simulation.
+	* Stores simulation parameters read from arguments.
+	* Initializes the main table mutex and allocates philosophers and forks.
+	* If any allocation or setup fails, returns NULL and prints an error.
+	* Returns a fully initialized table ready to start the simulation.
+*/
 t_table	*init_table(int argc, char **argv)
 {
 	int		i;

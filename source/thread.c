@@ -6,12 +6,17 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/27 10:47:03 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/10/27 14:03:29 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/10/27 16:48:31 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/* thread_error_handler:
+	* Handles pthread thread-related errors.
+	* Prints descriptive messages for creation or join failures.
+	* Returns EXIT_SUCCESS if no error or an error code otherwise.
+*/
 int	thread_error_handler(int status, t_thread_operation operation)
 {
 	if (status == 0)
@@ -36,6 +41,11 @@ int	thread_error_handler(int status, t_thread_operation operation)
 	return (print_msg("Unknown thread error.\n", NULL, EXIT_FAILURE));
 }
 
+/* thread_operator:
+	* Performs thread operations such as create or join.
+	* Encapsulates pthread_create and pthread_join with error checking.
+	* Returns the result handled by thread_error_handler().
+*/
 int	thread_operator(pthread_t *thread, void *(*routine)(void *), void *data,
 		t_thread_operation operation)
 {

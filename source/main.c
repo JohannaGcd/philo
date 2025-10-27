@@ -6,14 +6,22 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/27 14:07:59 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/10/27 14:08:40 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/10/27 14:28:27 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// 0 check: double check if this 
+// TODO: 0 check: double check if this 
 //should be done in philo_routine or if its fine here
+
+/* start_dinner:
+	* Starts the philosopher simulation by creating one thread per philosopher.
+	* Also launches the 'faucheuse' (monitor) thread 
+	(if more than one philosopher exists.)
+	* Initializes the start time with a small delay to synchronize threads.
+	* Returns true on successful start, or prints an error message if fails.
+*/
 static bool	start_dinner(t_table *table)
 {
 	int	i;
@@ -38,7 +46,11 @@ static bool	start_dinner(t_table *table)
 	}
 	return (true);
 }
-
+/* stop_dinner:
+	* Waits for all philosopher and monitor threads to finish execution.
+	* After joining threads, it destroys all mutexes and frees allocated memory.
+	* Ensures a clean shutdown of the simulation without resource leaks.
+*/
 static void	stop_dinner(t_table *table)
 {
 	int	i;
@@ -56,11 +68,12 @@ static void	stop_dinner(t_table *table)
 }
 
 /* Main:
-	1. Checks input
-	2. Initialises the table
-	3. Launches the routine
-	4. Stops the routine & cleans up (when philos have eaten 
-	the nbr of meals specified or if one dies)
+	* Entry point of the philosopher program.
+	* Validates input arguments and formats.
+	* Initializes the simulation table and data structures.
+	* Launches philosopher and monitor threads.
+	* Waits for completion and performs cleanup upon termination.
+	* Returns EXIT_SUCCESS on normal completion, or an error code on failure.
 */
 int	main(int argc, char **argv)
 {
