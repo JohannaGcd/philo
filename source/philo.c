@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/27 10:46:53 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/10/27 14:39:32 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/10/27 18:07:07 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ static void	philo_eat_then_sleep(t_philo *philo)
 	write_status(philo, false, GOT_FIRST_FORK);
 	pthread_mutex_lock(&philo->fork_two->fork_mutex);
 	write_status(philo, false, GOT_SECOND_FORK);
-	write_status(philo, false, EATING);
 	write_long(&philo->meal_time_lock, &philo->last_meal_time,
 		get_time_in_ms());
+	write_status(philo, false, EATING);
 	philo_sleep(philo->table, philo->table->time_to_eat);
 	if (has_dinner_stopped(philo->table) == false)
 		write_int(&philo->meal_time_lock, &philo->meals_nbr, philo->meals_nbr
@@ -43,15 +43,16 @@ static void	philo_eat_then_sleep(t_philo *philo)
 */
 void	philo_sleep(t_table *table, time_t time_to_sleep)
 {
-	time_t	wake_up;
+	// time_t	wake_up;
 
-	wake_up = get_time_in_ms() + time_to_sleep;
-	while (get_time_in_ms() < wake_up)
-	{
-		if (has_dinner_stopped(table))
-			break ;
-		usleep(100);
-	}
+	// wake_up = get_time_in_ms() + time_to_sleep;
+	// while (get_time_in_ms() < wake_up)
+	// {
+	// 	if (has_dinner_stopped(table))
+	// 		break ;
+	// 	usleep(100);
+	// }
+	precise_usleep(table, time_to_sleep);
 }
 
 /* single_philo:
@@ -93,6 +94,7 @@ static void	philo_think(t_philo *philo, bool delay)
 		write_status(philo, false, THINKING);
 	philo_sleep(philo->table, thinking_time);
 }
+
 /* philo_routine:
 	* Main loop executed by each philosopher thread.
 	* Initializes last meal time and synchronizes start with others.

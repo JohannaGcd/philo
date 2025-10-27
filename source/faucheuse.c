@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/27 10:37:21 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/10/27 14:43:29 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/10/27 18:12:01 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ bool	must_stop_dinner(t_table *table)
 	}
 	return (false);
 }
+
 /* faucheuse:
 	* Monitor thread that supervises the simulation.
 	* Waits for the start signal, then checks philosophers in a loop.
@@ -97,7 +98,7 @@ void	*faucheuse(void *data)
 	{
 		if (must_stop_dinner(table) == true)
 			return (NULL);
-		usleep(1000);
+		usleep(800);
 	}
 	return (NULL);
 }
