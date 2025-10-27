@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/27 10:47:03 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/10/27 11:00:01 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/10/27 14:03:29 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ int	thread_error_handler(int status, t_thread_operation operation)
 	if (status == 0)
 		return (EXIT_SUCCESS);
 	if (status == EAGAIN)
-		return (print_msg("No resources to create another thread.\n", 
+		return (print_msg("No resources to create another thread.\n",
 				NULL, EXIT_FAILURE));
 	else if (status == EINVAL && operation == THREAD_JOIN)
-		return (print_msg("Thread is not a joinable thread.\n", 
+		return (print_msg("Thread is not a joinable thread.\n",
 				NULL, EXIT_FAILURE));
 	else if (status == EINVAL && operation == THREAD_CREATE)
-		return (print_msg("Thread creation failed: invalid args.\n", 
+		return (print_msg("Thread creation failed: invalid args.\n",
 				NULL, EXIT_FAILURE));
 	else if (status == ESRCH)
-		return (print_msg("No thread with the ID specified could be found.\n", 
+		return (print_msg("No thread with the ID specified could be found.\n",
 				NULL, EXIT_FAILURE));
 	else if (status == EDEADLK)
-		return (print_msg("A deadlock was detected.\n", 
+		return (print_msg("A deadlock was detected.\n",
 				NULL, EXIT_FAILURE));
 	else
 		return (print_msg("Unknown error.\n", NULL, EXIT_FAILURE));

@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/27 10:37:21 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/10/27 10:37:49 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/10/27 14:09:31 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ bool	must_stop_dinner(t_table *table)
 
 void	*faucheuse(void *data)
 {
-	t_table *table;
+	t_table		*table;
 
 	table = (t_table *)data;
 	if (table->must_eat == 0)

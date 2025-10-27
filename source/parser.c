@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/27 10:46:56 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/10/27 10:57:37 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/10/27 14:05:12 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ static bool	only_digits(char *str)
 
 bool	is_valid_input(int argc, char **argv)
 {
-	int i;
-	int nbr;
+	int		i;
+	int		nbr;
 
 	i = 1;
 	while (i < argc)

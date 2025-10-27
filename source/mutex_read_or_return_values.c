@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/27 10:40:43 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/10/27 10:58:06 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/10/27 14:07:36 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	write_bool(pthread_mutex_t *mutex, bool *dest, bool value)
 	mutex_operator(mutex, MUTEX_LOCK);
 	*dest = value;
 	mutex_operator(mutex, MUTEX_UNLOCK);
-
 }
 
 bool	return_bool(pthread_mutex_t *mutex, bool *value)
@@ -38,7 +37,7 @@ void	write_int(pthread_mutex_t *mutex, int *dest, int value)
 	mutex_operator(mutex, MUTEX_UNLOCK);
 }
 
-int	return_int(pthread_mutex_t *mutex, int *value)
+/*int	return_int(pthread_mutex_t *mutex, int *value)
 {
 	bool	ret;
 
@@ -46,7 +45,7 @@ int	return_int(pthread_mutex_t *mutex, int *value)
 	ret = *value;
 	mutex_operator(mutex, MUTEX_UNLOCK);
 	return (ret);
-}
+}*/
 
 void	write_long(pthread_mutex_t *mutex, long *dest, long value)
 {

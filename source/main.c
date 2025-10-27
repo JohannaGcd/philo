@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/10/27 14:07:59 by jguacide      #+#    #+#                 */
+/*   Updated: 2025/10/27 14:08:40 by jguacide      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
-// 0 check: double check if this should be done in philo_routine or if its fine here
+// 0 check: double check if this 
+//should be done in philo_routine or if its fine here
 static bool	start_dinner(t_table *table)
 {
 	int	i;
@@ -46,11 +59,12 @@ static void	stop_dinner(t_table *table)
 	1. Checks input
 	2. Initialises the table
 	3. Launches the routine
-	4. Stops the routine & cleans up (when philos have eaten the nbr of meals specified or if one dies)
+	4. Stops the routine & cleans up (when philos have eaten 
+	the nbr of meals specified or if one dies)
 */
 int	main(int argc, char **argv)
 {
-    t_table *table;
+	t_table		*table;
 
 	table = NULL;
 	if (argc < 5 || argc > 6)

@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/27 10:46:53 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/10/27 11:01:40 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/10/27 14:03:59 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static void	philo_think(t_philo *philo, bool delay)
 
 void	*philo_routine(void *data)
 {
-    t_philo     *philo;
+	t_philo		*philo;
 
 	philo = (t_philo *)data;
 	write_long(&philo->meal_time_lock, &philo->last_meal_time,
