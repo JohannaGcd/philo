@@ -1,16 +1,16 @@
 #include "philo.h"
 
-static void assign_forks(t_philo *philo)
-{	
-	int id;
-	int total;
+static void	assign_forks(t_philo *philo)
+{
+	int	id;
+	int	total;
 
 	id = philo->philo_ID - 1;
 	total = philo->table->philo_nbr;
 	if (id % 2 == 0)
 	{
 		philo->fork_one = &philo->table->forks[id];
-		philo->fork_two = &philo->table->forks[(id + 1) % total];	
+		philo->fork_two = &philo->table->forks[(id + 1) % total];
 	}
 	else
 	{
@@ -19,10 +19,10 @@ static void assign_forks(t_philo *philo)
 	}
 }
 
-static t_fork *init_forks(t_table *table, int nbr)
+static t_fork	*init_forks(t_table *table, int nbr)
 {
-	int i;
-	t_fork *forks;
+	int		i;
+	t_fork	*forks;
 
 	i = 0;
 	forks = malloc(sizeof(t_fork) * nbr);
@@ -45,8 +45,8 @@ static t_fork *init_forks(t_table *table, int nbr)
 }
 static t_philo	*init_philos(t_table *table, int nbr)
 {
-	int i;
-	t_philo *philos;
+	int		i;
+	t_philo	*philos;
 
 	i = 0;
 	philos = malloc(sizeof(t_philo) * nbr);
@@ -64,10 +64,10 @@ static t_philo	*init_philos(t_table *table, int nbr)
 	return (philos);
 }
 
-static long	atolong (char *str)
+static long	atolong(char *str)
 {
-	int i;
-	unsigned long nbr;
+	int				i;
+	unsigned long	nbr;
 
 	nbr = 0;
 	i = 0;
@@ -79,10 +79,10 @@ static long	atolong (char *str)
 	return (nbr);
 }
 
-t_table *init_table(int argc, char **argv)
+t_table	*init_table(int argc, char **argv)
 {
-	int i;
-	t_table *table;
+	int 		i;
+	t_table 	*table;
 
 	i = 1;
 	table = malloc(sizeof(t_table) * 1);
