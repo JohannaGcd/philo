@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   init.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/10/27 11:01:17 by jguacide      #+#    #+#                 */
+/*   Updated: 2025/10/27 11:01:24 by jguacide      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 static void	assign_forks(t_philo *philo)
@@ -5,7 +17,7 @@ static void	assign_forks(t_philo *philo)
 	int	id;
 	int	total;
 
-	id = philo->philo_ID - 1;
+	id = philo->philo_id - 1;
 	total = philo->table->philo_nbr;
 	if (id % 2 == 0)
 	{
@@ -43,6 +55,7 @@ static t_fork	*init_forks(t_table *table, int nbr)
 	}
 	return (forks);
 }
+
 static t_philo	*init_philos(t_table *table, int nbr)
 {
 	int		i;
@@ -54,7 +67,7 @@ static t_philo	*init_philos(t_table *table, int nbr)
 		return (err_null(STR_ERR_MALLOC, "init_philos", table));
 	while (i < nbr)
 	{
-		philos[i].philo_ID = i + 1;
+		philos[i].philo_id = i + 1;
 		philos[i].meals_nbr = 0;
 		philos[i].max_meals = table->must_eat;
 		philos[i].table = table;
@@ -81,8 +94,8 @@ static long	atolong(char *str)
 
 t_table	*init_table(int argc, char **argv)
 {
-	int 		i;
-	t_table 	*table;
+	int		i;
+	t_table	*table;
 
 	i = 1;
 	table = malloc(sizeof(t_table) * 1);

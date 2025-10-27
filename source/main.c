@@ -50,7 +50,7 @@ static void	stop_dinner(t_table *table)
 */
 int	main(int argc, char **argv)
 {
-	t_table *table;
+    t_table *table;
 
 	table = NULL;
 	if (argc < 5 || argc > 6)

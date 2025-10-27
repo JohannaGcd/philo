@@ -6,13 +6,13 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/27 10:47:03 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/10/27 10:59:20 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/10/27 11:00:01 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int thread_error_handler(int status, t_thread_operation operation)
+int	thread_error_handler(int status, t_thread_operation operation)
 {
 	if (status == 0)
 		return (EXIT_SUCCESS);
