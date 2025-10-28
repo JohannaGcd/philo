@@ -20,6 +20,16 @@
  */
 static void	philo_eat_then_sleep(t_philo *philo)
 {
+	if (philo->table->must_eat != -1)
+	{
+		pthread_mutex_lock(&philo->meal_time_lock);
+		if (philo->meals_nbr >= philo->table->must_eat)
+		{
+			pthread_mutex_unlock(&philo->meal_time_lock);
+			return ;
+		}
+		pthread_mutex_unlock(&philo->meal_time_lock);
+	}
 	pthread_mutex_lock(&philo->fork_one->fork_mutex);
 	write_status(philo, false, GOT_FIRST_FORK);
 	pthread_mutex_lock(&philo->fork_two->fork_mutex);
