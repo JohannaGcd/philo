@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/27 10:48:46 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/10/28 13:22:09 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/10/28 15:46:46 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,8 @@ static void	print_status(t_philo *philo, char *s)
 */
 void	write_status(t_philo *philo, bool faucheuse_info, t_status status)
 {
-	// pthread_mutex_lock(&philo->table->table_lock);
-	// if (has_dinner_stopped(philo->table) == true && faucheuse_info == false)
-	// {
-	// 	pthread_mutex_unlock(&philo->table->table_lock);
-	// 	return ;
-	// }
-
 	if (has_dinner_stopped(philo->table) == true && faucheuse_info == false)
-		return;
+		return ;
 	pthread_mutex_lock(&philo->table->table_lock);
 	if (status == DIED)
 		print_status(philo, "died");

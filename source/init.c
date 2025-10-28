@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/27 11:01:17 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/10/28 12:36:01 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/10/28 15:37:56 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static t_fork	*init_forks(t_table *table, int nbr)
 	}
 	return (forks);
 }
+
 /* init_philos:
 	* Allocates memory and initializes each philosopher structure.
 	* Sets IDs, meal counters, and maximum meal limits.
@@ -112,6 +113,7 @@ static long	atolong(char *str)
 	}
 	return (nbr);
 }
+
 /* init_table:
 	* Creates and initializes the main table structure for the simulation.
 	* Stores simulation parameters read from arguments.
