@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/27 10:48:46 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/10/27 17:59:20 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/10/28 13:22:09 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,15 @@ static void	print_status(t_philo *philo, char *s)
 */
 void	write_status(t_philo *philo, bool faucheuse_info, t_status status)
 {
+	// pthread_mutex_lock(&philo->table->table_lock);
+	// if (has_dinner_stopped(philo->table) == true && faucheuse_info == false)
+	// {
+	// 	pthread_mutex_unlock(&philo->table->table_lock);
+	// 	return ;
+	// }
+
 	if (has_dinner_stopped(philo->table) == true && faucheuse_info == false)
-		return ;
+		return;
 	pthread_mutex_lock(&philo->table->table_lock);
 	if (status == DIED)
 		print_status(philo, "died");
@@ -73,19 +80,20 @@ time_t	get_time_in_ms(void)
 	* Uses short sleep intervals and time checks to avoid oversleeping.
 	* Regularly tests if the dinner has ended to exit early.
 */
-void	precise_usleep(t_table *table, time_t duration)
-{
-	time_t	start;
-	time_t	now;
+// void	precise_usleep(t_table *table, time_t time_to_sleep)
+// {
+// 	time_t	start;
+// 	time_t	now;
 
-	start = get_time_in_ms();
-	while (1)
-	{
-		if (has_dinner_stopped(table))
-			break ;
-		now = get_time_in_ms();
-		if (now - start >= duration)
-			break ;
-		usleep(200);
-	}
-}
+// 	start = get_time_in_ms();
+// 	time_to_sleep = time_to_sleep * 1000;
+// 	while (1)
+// 	{
+// 		if (has_dinner_stopped(table))
+// 			break ;
+// 		now = get_time_in_ms();
+// 		if (now - start >= time_to_sleep)
+// 			break ;
+// 		usleep(200);
+// 	}
+// }

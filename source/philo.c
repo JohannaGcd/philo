@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/27 10:46:53 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/10/27 18:07:07 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/10/28 14:03:35 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ static void	philo_eat_then_sleep(t_philo *philo)
 	if (has_dinner_stopped(philo->table) == false)
 		write_int(&philo->meal_time_lock, &philo->meals_nbr, philo->meals_nbr
 			+ 1);
-	write_status(philo, false, SLEEPING);
 	pthread_mutex_unlock(&philo->fork_one->fork_mutex);
 	pthread_mutex_unlock(&philo->fork_two->fork_mutex);
+	write_status(philo, false, SLEEPING);
+	philo_sleep(philo->table, philo->table->time_to_sleep);	
 }
 
 /* philo_sleep:
@@ -43,16 +44,17 @@ static void	philo_eat_then_sleep(t_philo *philo)
 */
 void	philo_sleep(t_table *table, time_t time_to_sleep)
 {
-	// time_t	wake_up;
+	time_t	wake_up;
 
-	// wake_up = get_time_in_ms() + time_to_sleep;
-	// while (get_time_in_ms() < wake_up)
-	// {
-	// 	if (has_dinner_stopped(table))
-	// 		break ;
-	// 	usleep(100);
-	// }
-	precise_usleep(table, time_to_sleep);
+	// printf("time to sleep in philo_sleep: %ld\n", time_to_sleep);
+	wake_up = get_time_in_ms() + time_to_sleep;
+	while (get_time_in_ms() < wake_up)
+	{
+		if (has_dinner_stopped(table))
+			break ;
+		usleep(1000);
+	}
+	//precise_usleep(table, time_to_sleep);
 }
 
 /* single_philo:
@@ -82,7 +84,7 @@ static void	philo_think(t_philo *philo, bool delay)
 
 	pthread_mutex_lock(&philo->meal_time_lock);
 	thinking_time = (philo->table->time_to_die - (get_time_in_ms()
-				- philo->last_meal_time) - philo->table->time_to_eat) / 2;
+				- philo->last_meal_time) - philo->table->time_to_eat) / 3;
 	pthread_mutex_unlock(&philo->meal_time_lock);
 	if (thinking_time < 0)
 		thinking_time = 0;

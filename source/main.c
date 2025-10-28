@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/27 14:07:59 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/10/27 14:28:27 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/10/28 13:16:59 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static bool	start_dinner(t_table *table)
 	}
 	else
 	{
-		table->start_time = get_time_in_ms() + (table->philo_nbr * 20);
+		table->start_time = get_time_in_ms() + (table->philo_nbr * 10);
 		while (i < table->philo_nbr)
 		{
 			thread_operator(&table->philos[i].thread_id, philo_routine,
