@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/27 09:58:04 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/10/28 12:18:08 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/10/29 15:27:25 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,4 +136,5 @@ void					philo_sleep(t_table *table, time_t time_to_sleep);
 bool					return_bool(pthread_mutex_t *mutex, bool *value);
 bool					has_dinner_stopped(t_table *table);
 void					write_int(pthread_mutex_t *mutex, int *dest, int value);
-void					precise_usleep(t_table *table, time_t duration);
+void					precise_usleep(t_table *table, time_t time_to_sleep);
+void					micro_usleep(time_t microseconds);
