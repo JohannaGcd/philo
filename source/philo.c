@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/27 10:46:53 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/10/29 18:42:56 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/10/29 19:00:25 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void	*philo_routine(void *data)
 	if (philo->table->philo_nbr == 1)
 		return (single_philo(philo));
 	else if (philo->philo_id % 2)
-		usleep(10);
+		usleep(100);
 	while (has_dinner_stopped(philo->table) == false)
 	{
 		philo_eat_then_sleep(philo);
