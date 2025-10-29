@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/27 10:48:46 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/10/28 15:46:46 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/10/29 15:24:47 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,26 +67,3 @@ time_t	get_time_in_ms(void)
 	gettimeofday(&time, NULL);
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
-
-/* precise_usleep:
-	* Sleeps for the given duration (in ms) with high precision.
-	* Uses short sleep intervals and time checks to avoid oversleeping.
-	* Regularly tests if the dinner has ended to exit early.
-*/
-// void	precise_usleep(t_table *table, time_t time_to_sleep)
-// {
-// 	time_t	start;
-// 	time_t	now;
-
-// 	start = get_time_in_ms();
-// 	time_to_sleep = time_to_sleep * 1000;
-// 	while (1)
-// 	{
-// 		if (has_dinner_stopped(table))
-// 			break ;
-// 		now = get_time_in_ms();
-// 		if (now - start >= time_to_sleep)
-// 			break ;
-// 		usleep(200);
-// 	}
-// }

@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/27 14:07:59 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/10/28 13:16:59 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/10/29 15:30:46 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static bool	start_dinner(t_table *table)
 	}
 	return (true);
 }
+
 /* stop_dinner:
 	* Waits for all philosopher and monitor threads to finish execution.
 	* After joining threads, it destroys all mutexes and frees allocated memory.

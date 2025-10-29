@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/27 10:46:53 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/10/28 15:36:53 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/10/29 14:47:06 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,9 @@ static void	philo_eat_then_sleep(t_philo *philo)
  */
 void	philo_sleep(t_table *table, time_t time_to_sleep)
 {
-	time_t	wake_up;
-
-	wake_up = get_time_in_ms() + time_to_sleep;
-	while (get_time_in_ms() < wake_up)
-	{
-		if (has_dinner_stopped(table))
-			break ;
-		usleep(1000);
-	}
+	if (has_dinner_stopped(table))
+		return ;
+	precise_usleep(table, time_to_sleep);
 }
 
 /* single_philo:

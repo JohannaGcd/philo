@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/27 10:37:21 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/10/27 18:12:01 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/10/29 15:30:37 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	*faucheuse(void *data)
 	{
 		if (must_stop_dinner(table) == true)
 			return (NULL);
-		usleep(800);
+		micro_usleep(700);
 	}
 	return (NULL);
 }

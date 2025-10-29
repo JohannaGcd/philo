@@ -6,7 +6,7 @@ INC = -I ./include/
 SRC_PATH = source/
 OBJ_PATH = object/
 
-SRC = exit.c faucheuse.c init.c main.c mutex_read_or_return_values.c mutex.c parser.c philo.c thread.c utils.c  
+SRC = exit.c faucheuse.c init.c main.c mutex_read_or_return_values.c mutex.c parser.c philo.c thread.c utils.c time.c
 OBJS = $(addprefix $(OBJ_PATH), $(SRC:.c=.o))
 
 all: $(NAME)
