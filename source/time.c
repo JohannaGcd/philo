@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/29 15:24:15 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/10/29 15:31:50 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/10/30 12:43:36 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,7 @@ void	precise_usleep(t_table *table, time_t time_to_sleep)
 		elapsed = (get_time_in_us() - start) / 1000;
 		if (elapsed >= time_to_sleep)
 			return ;
-		if (time_to_sleep - elapsed > 2)
-			usleep(1000);
-		else
-			usleep(50);
+		usleep(time_to_sleep * 1000);
 	}
 }
 
