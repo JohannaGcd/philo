@@ -1,17 +1,18 @@
 # philo
-This project is about simulating philosophers who: Sit around a table - Alternate between thinking, eating, and sleeping. - Need two forks (shared resources) to eat. It’s a synchronization problem : the goal is to learn how to coordinate concurrent access to shared resources (using mutexes) while preventing race conditions.
+This project is about simulating philosophers who: 
+    Sit around a table - Alternate between thinking, eating, and sleeping. - Need two forks (shared resources) to eat. It’s a synchronization problem : the goal is to learn how to coordinate concurrent access to shared resources (using mutexes) while preventing race conditions.
 
-Todo:
+Step by step:
 - 1. parsing. 
-Check valid input:  The program will receive 4 or 5 arguments so the first thing should be to throw an error if we receive more or less. 
+    Check valid input:  The program will receive 4 or 5 arguments so the first thing should be to throw an error if we receive more or less. 
     Example:
-    5 — The number of philosophers
-    800 — The time a philosopher will die if he doesn’t eat
-    200 — The time it takes a philosopher to eat
-    200 — The time it takes a philosopher to sleep
-    7 — Number of times all the philosophers need to eat before terminating the program (optional - If provided, the simulation will end when every philosopher has eaten this number of times; if not specified, it will end when any philosopher dies.).
+        5 — The number of philosophers
+        800 — The time a philosopher will die if he doesn’t eat
+        200 — The time it takes a philosopher to eat
+        200 — The time it takes a philosopher to sleep
+        7 — Number of times all the philosophers need to eat before terminating the program (optional - If provided, the simulation will end when every philosopher has eaten this             number of times; if not specified, it will end when any philosopher dies.).
 
-So we need to check that the input contains only numbers, they should all be bigger than 0 except the number of meals each philo needs to eat (edge case), and check for max limit (cf. subject) 200 philos. Make sure to print “Warning message” in case of undefined input.
+    So we need to check that the input contains only numbers, they should all be bigger than 0 except the number of meals each philo needs to eat (edge case), and check for max limit       (cf. subject) 200 philos. Make sure to print “Warning message” in case of undefined input.
 
 - 2. Set structures: for the table, each philo, and forks.
 - 3. Data Initialization: make sure you create exit functions to clean any allocated memory in case of error.
